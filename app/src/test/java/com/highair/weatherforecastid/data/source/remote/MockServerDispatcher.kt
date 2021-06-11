@@ -19,6 +19,12 @@ class SuccessDispatcher : Dispatcher() {
                         fileName = "weather_response.json"
                     )
                 )
+            "/cuaca/wilayah.json" -> MockResponse().setResponseCode(200)
+                .setBody(
+                    responseBuilder.getJsonContent(
+                        fileName = "region_response.json"
+                    )
+                )
             else -> MockResponse().setResponseCode(400)
         }
     }

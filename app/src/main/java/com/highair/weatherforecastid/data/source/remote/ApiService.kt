@@ -1,6 +1,7 @@
 package com.highair.weatherforecastid.data.source.remote
 
 import com.highair.weatherforecastid.data.source.remote.ApiConstants.BASE_URL
+import com.highair.weatherforecastid.data.source.remote.ApiConstants.REGION_PATH
 import com.highair.weatherforecastid.data.source.remote.ApiConstants.WEATHER_PATH
 import com.highair.weatherforecastid.data.source.remote.ApiConstants.regionPath
 import com.squareup.moshi.Moshi
@@ -24,6 +25,9 @@ interface ApiService {
     suspend fun getWeathers(
         @Path(regionPath) region: Long
     ): List<WeatherDto>
+
+    @GET(REGION_PATH)
+    suspend fun getRegions(): List<RegionDto>
 
     companion object {
 

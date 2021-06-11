@@ -12,13 +12,15 @@ import dagger.hilt.android.qualifiers.ApplicationContext
  */
 @Database(
     entities = [
-        WeatherEntity::class
+        WeatherEntity::class,
+        RegionEntity::class
     ],
     version = AppDatabase.version
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun weatherDao(): WeatherDao
+    abstract fun regionDao(): RegionDao
 
     companion object {
 

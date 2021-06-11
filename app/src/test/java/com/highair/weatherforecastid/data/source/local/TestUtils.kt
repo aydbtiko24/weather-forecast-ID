@@ -127,3 +127,24 @@ internal val weatherEntities = listOf(
         tempF = 73
     )
 )
+
+internal val regionEntities = listOf(
+    RegionEntity(
+        id = 501397,
+        province = "Aceh",
+        city = "Kota Banda Aceh",
+        district = "Banda Aceh"
+    ),
+    RegionEntity(
+        id = 501162,
+        province = "Bali",
+        city = "Kab. Karangasem",
+        district = "Amplapura"
+    ),
+    RegionEntity(
+        id = 5002216,
+        province = "SumateraUtara",
+        city = "Kab. Nias Barat",
+        district = "Lahomi"
+    ),
+)

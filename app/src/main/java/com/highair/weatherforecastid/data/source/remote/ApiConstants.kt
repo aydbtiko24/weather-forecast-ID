@@ -8,4 +8,5 @@ object ApiConstants {
     const val BASE_URL = "https://ibnux.github.io/BMKG-importer/"
     const val regionPath = "region"
     const val WEATHER_PATH = "cuaca/{$regionPath}.json"
+    const val REGION_PATH = "cuaca/wilayah.json"
 }

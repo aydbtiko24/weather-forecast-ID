@@ -1,7 +1,8 @@
 package com.highair.weatherforecastid.data.source.remote
 
 import com.google.common.truth.Truth.assertThat
-import com.highair.weatherforecastid.data.source.local.weatherEntities
+import com.highair.weatherforecastid.data.source.local.asDomainModels
+import com.highair.weatherforecastid.data.source.local.regionEntities
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
@@ -9,21 +10,20 @@ import org.junit.Before
 import org.junit.Test
 
 /**
- * Created by aydbtiko on 6/10/2021.
+ * Created by aydbtiko on 6/11/2021.
  *
  */
-class WeatherRemoteDataSourceImplTest {
+class RegionRemoteDataSourceImplTest {
 
     private lateinit var mockWebServer: MockWebServer
-
-    private lateinit var dataSource: WeatherRemoteDataSourceImpl
+    private lateinit var dataSource: RegionRemoteDataSourceImpl
 
     @Before
     fun setUp() {
         val okHttp = buildOkHttpClient()
         val apiService = buildApiService(okHttp)
         mockWebServer = buildMockServer(SuccessDispatcher())
-        dataSource = WeatherRemoteDataSourceImpl(apiService)
+        dataSource = RegionRemoteDataSourceImpl(apiService)
     }
 
     @After
@@ -32,13 +32,15 @@ class WeatherRemoteDataSourceImplTest {
     }
 
     @Test
-    fun `get weathers, returns expected values`(): Unit = runBlocking {
+    fun `get regions, return expected value`(): Unit = runBlocking {
         // given return data from mockServer
-        // when get weathers from remote server
-        val weathers = dataSource.getWeathers(0)
+        val regions = dataSource.getRegions()
 
         // then contains expected value
-        assertThat(weathers).hasSize(weatherEntities.size)
+        assertThat(regions).isNotEmpty()
+        val expected = regionEntities.asDomainModels()
+        assertThat(regions).contains(
+            expected[0]
+        )
     }
-
 }
