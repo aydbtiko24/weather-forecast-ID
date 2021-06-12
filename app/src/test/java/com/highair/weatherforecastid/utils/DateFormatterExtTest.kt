@@ -126,4 +126,16 @@ class DateFormatterExtTest {
         assertEquals(weatherTime, expectedWeatherTime)
     }
 
+    @Test
+    fun `format label date to local date`() {
+        // given
+        val labelDate = "Thu, 10 jun"
+
+        // when
+        val currentDate = labelDate.asSelectedLocalDateTime()
+
+        // then
+        val expectedWeatherTime = 1623258000000 // 2021 06 10 00:00:00
+        assertEquals(currentDate, expectedWeatherTime)
+    }
 }

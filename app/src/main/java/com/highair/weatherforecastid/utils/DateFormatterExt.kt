@@ -18,6 +18,7 @@ fun Long.toStartDateTime(): Long {
     startCalendar[Calendar.HOUR_OF_DAY] = 0
     startCalendar[Calendar.MINUTE] = 0
     startCalendar[Calendar.SECOND] = 0
+    startCalendar[Calendar.MILLISECOND] = 0
     return startCalendar.timeInMillis
 }
 
@@ -29,11 +30,14 @@ fun Long.toEndDateTime(): Long {
     endCalendar[Calendar.HOUR_OF_DAY] = 23
     endCalendar[Calendar.MINUTE] = 59
     endCalendar[Calendar.SECOND] = 59
+    endCalendar[Calendar.MILLISECOND] = 59
     return endCalendar.timeInMillis
 }
 
+private const val labelFormat = "EE, dd MMM"
+
 fun Long.asDateString(): String {
-    return SimpleDateFormat("EE, dd MMM", Locale.getDefault()).format(this)
+    return SimpleDateFormat(labelFormat, Locale.getDefault()).format(this)
 }
 
 fun Long.asTimeString(): String {
@@ -41,7 +45,24 @@ fun Long.asTimeString(): String {
 }
 
 fun String.asLocalDateTime(): Long {
-    return SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(this)?.time ?: 0L
+    return SimpleDateFormat(
+        "yyyy-MM-dd HH:mm:ss", Locale.getDefault()
+    ).parse(this)?.time ?: 0L
+}
+
+fun String.asSelectedLocalDateTime(): Long {
+
+    val date = SimpleDateFormat(
+        labelFormat, Locale.getDefault()
+    ).parse(this)?.time ?: 0L
+
+    val currentCalendar = Calendar.getInstance()
+
+    return Calendar.getInstance().apply {
+        timeInMillis = date
+        set(Calendar.YEAR, currentCalendar[Calendar.YEAR])
+    }.timeInMillis
+
 }
 
 fun findClosestWeatherTime(currentDateTime: Long): Long {
