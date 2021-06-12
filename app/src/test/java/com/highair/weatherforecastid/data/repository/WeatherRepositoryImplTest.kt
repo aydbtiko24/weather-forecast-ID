@@ -1,13 +1,12 @@
 package com.highair.weatherforecastid.data.repository
 
 import com.google.common.truth.Truth.assertThat
-import com.highair.weatherforecastid.data.Constants.invalidId
 import com.highair.weatherforecastid.data.Result
 import com.highair.weatherforecastid.data.source.WeatherLocalDataSource
 import com.highair.weatherforecastid.data.source.WeatherRemoteDataSource
 import com.highair.weatherforecastid.data.source.local.asDomainModels
 import com.highair.weatherforecastid.data.source.local.weatherEntities
-import com.highair.weatherforecastid.models.Weather
+import com.highair.weatherforecastid.models.Invalid
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -57,15 +56,7 @@ class WeatherRepositoryImplTest {
     fun `get current weather, data invalid id, fetch remote data source`(): Unit = runBlocking {
         val currentDateTime = 123L
         val regionId = 12L
-        val weather = Weather(
-            id = invalidId,
-            name = "",
-            dateTime = 0,
-            code = 0,
-            humidity = 0,
-            tempC = 0,
-            tempF = 0
-        )
+        val weather = Invalid.weather
 
         every { localDataSource.getCurrentWeather(currentDateTime) } returns flowOf(
             weather
@@ -103,16 +94,8 @@ class WeatherRepositoryImplTest {
     fun `get current weather, data & region invalid id, shld't fetch remote data source`(): Unit =
         runBlocking {
             val currentDateTime = 123L
-            val regionId = invalidId
-            val weather = Weather(
-                id = invalidId,
-                name = "",
-                dateTime = 0,
-                code = 0,
-                humidity = 0,
-                tempC = 0,
-                tempF = 0
-            )
+            val regionId = Invalid.id
+            val weather = Invalid.weather
 
             every { localDataSource.getCurrentWeather(currentDateTime) } returns flowOf(
                 weather

@@ -1,7 +1,7 @@
 package com.highair.weatherforecastid.data.source.local
 
-import com.highair.weatherforecastid.data.Constants.invalidId
 import com.highair.weatherforecastid.data.source.RegionLocalDataSource
+import com.highair.weatherforecastid.models.Invalid
 import com.highair.weatherforecastid.models.Region
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -26,12 +26,7 @@ class RegionLocalDataSourceImpl(
 
     override fun getRegionsById(regionId: Long): Flow<Region> {
         return regionDao.getRegionById(regionId).map {
-            it?.asDomainModel() ?: Region(
-                id = invalidId,
-                province = "",
-                city = "",
-                district = ""
-            )
+            it?.asDomainModel() ?: Invalid.region
         }
     }
 }

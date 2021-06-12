@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
-import com.highair.weatherforecastid.data.Constants.invalidId
 import com.highair.weatherforecastid.data.source.PreferencesLocalDataSource
+import com.highair.weatherforecastid.models.Invalid
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -45,7 +45,7 @@ class PreferencesLocalDataSourceImplTest {
         val invalidResult = preferencesLocalDataSource.getSelectedRegionId().first()
 
         // then return invalid id
-        assertThat(invalidResult).isEqualTo(invalidId)
+        assertThat(invalidResult).isEqualTo(Invalid.id)
 
         // given selected region id on store
         val regionId = 23L

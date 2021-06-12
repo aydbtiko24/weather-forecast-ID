@@ -2,7 +2,7 @@ package com.highair.weatherforecastid.data.source.local
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
-import com.highair.weatherforecastid.data.Constants
+import com.highair.weatherforecastid.models.Invalid
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -67,7 +67,7 @@ class WeatherLocalDataSourceImplTest {
         val currentDateTime = 1623262965000 // 2021 06 10 01:22:45
         val result = dataSource.getCurrentWeather(currentDateTime).first()
         // then return expected value
-        assertThat(result.id).isEqualTo(Constants.invalidId)
+        assertThat(result.id).isEqualTo(Invalid.id)
     }
 
     @Test

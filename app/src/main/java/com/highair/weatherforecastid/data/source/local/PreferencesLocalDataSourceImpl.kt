@@ -3,9 +3,9 @@ package com.highair.weatherforecastid.data.source.local
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import com.highair.weatherforecastid.data.Constants.invalidId
 import com.highair.weatherforecastid.data.source.PreferencesLocalDataSource
 import com.highair.weatherforecastid.data.source.PreferencesLocalDataSource.Companion.SELECTED_REGION
+import com.highair.weatherforecastid.models.Invalid
 import kotlinx.coroutines.flow.map
 
 /**
@@ -23,6 +23,6 @@ class PreferencesLocalDataSourceImpl(
     }
 
     override fun getSelectedRegionId() = store.data.map { preferences ->
-        preferences[SELECTED_REGION] ?: invalidId
+        preferences[SELECTED_REGION] ?: Invalid.id
     }
 }

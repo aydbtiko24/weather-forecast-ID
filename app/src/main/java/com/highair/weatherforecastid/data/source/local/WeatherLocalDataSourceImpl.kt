@@ -1,7 +1,7 @@
 package com.highair.weatherforecastid.data.source.local
 
-import com.highair.weatherforecastid.data.Constants
 import com.highair.weatherforecastid.data.source.WeatherLocalDataSource
+import com.highair.weatherforecastid.models.Invalid
 import com.highair.weatherforecastid.models.Weather
 import com.highair.weatherforecastid.utils.asDateString
 import com.highair.weatherforecastid.utils.findClosestWeatherTime
@@ -25,15 +25,7 @@ class WeatherLocalDataSourceImpl(
     override fun getCurrentWeather(currentDateTime: Long): Flow<Weather> {
         val dateTime = findClosestWeatherTime(currentDateTime)
         return dao.getCurrentWeather(dateTime).map { entity ->
-            entity?.asDomainModel() ?: Weather(
-                id = Constants.invalidId,
-                name = "",
-                dateTime = 0,
-                code = 0,
-                humidity = 0,
-                tempC = 0,
-                tempF = 0
-            )
+            entity?.asDomainModel() ?: Invalid.weather
         }
     }
 

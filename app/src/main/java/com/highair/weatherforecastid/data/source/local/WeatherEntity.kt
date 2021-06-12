@@ -3,7 +3,7 @@ package com.highair.weatherforecastid.data.source.local
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.highair.weatherforecastid.data.Constants
+import com.highair.weatherforecastid.models.Invalid
 import com.highair.weatherforecastid.models.Weather
 
 /**
@@ -31,7 +31,7 @@ data class WeatherEntity(
 
 /**Mapper*/
 fun WeatherEntity.asDomainModel() = Weather(
-    id = this.id ?: Constants.invalidId,
+    id = this.id ?: Invalid.id,
     name = this.name,
     dateTime = this.dateTime,
     code = this.code,

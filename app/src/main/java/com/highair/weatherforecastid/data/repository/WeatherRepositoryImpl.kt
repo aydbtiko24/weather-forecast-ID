@@ -1,10 +1,10 @@
 package com.highair.weatherforecastid.data.repository
 
-import com.highair.weatherforecastid.data.Constants.invalidId
 import com.highair.weatherforecastid.data.NetworkBoundResource
 import com.highair.weatherforecastid.data.Result
 import com.highair.weatherforecastid.data.source.WeatherLocalDataSource
 import com.highair.weatherforecastid.data.source.WeatherRemoteDataSource
+import com.highair.weatherforecastid.models.Invalid
 import com.highair.weatherforecastid.models.Weather
 import kotlinx.coroutines.flow.Flow
 
@@ -24,7 +24,7 @@ class WeatherRepositoryImpl(
     ): Flow<Result<Weather>> = object : NetworkBoundResource<Weather, List<Weather>>() {
 
         override fun shouldFetch(data: Weather) =
-            update || data.id == invalidId && regionId != invalidId
+            update || data.id == Invalid.id && regionId != Invalid.id
 
         override suspend fun saveRemoteData(response: List<Weather>) =
             localDataSource.addWeathers(response)
