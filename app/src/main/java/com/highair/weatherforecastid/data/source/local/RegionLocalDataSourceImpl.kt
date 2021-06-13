@@ -15,7 +15,9 @@ class RegionLocalDataSourceImpl(
 ) : RegionLocalDataSource {
 
     override suspend fun insertRegions(regions: List<Region>) {
-        regionDao.insertRegions(regions.asEntities())
+        regions.asEntities().filterNot { it.id == 0L }.let {
+            regionDao.insertRegions(it)
+        }
     }
 
     override fun getRegions(): Flow<List<Region>> {
