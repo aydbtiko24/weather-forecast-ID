@@ -84,5 +84,6 @@ fun findClosestWeatherTime(currentDateTime: Long): Long {
         set(Calendar.HOUR_OF_DAY, closestTime)
         set(Calendar.MINUTE, 0)
         set(Calendar.SECOND, 0)
+        set(Calendar.MILLISECOND, 0)
     }.timeInMillis
 }
