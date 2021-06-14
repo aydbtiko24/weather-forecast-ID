@@ -9,7 +9,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 /**
@@ -23,15 +24,19 @@ class RegionViewModel @Inject constructor(
     private val preferences: PreferencesLocalDataSource
 ) : ViewModel() {
 
-    val state: Flow<RegionViewState> = regionRepository.getRegions().map { result ->
-        RegionViewState(
-            dataLoading = result is Result.Loading,
-            regions = (result as? Result.Success)?.data ?: emptyList()
-        )
-    }
+    private val regionUpdated = MutableStateFlow(false)
+
+    val state: Flow<RegionViewState> =
+        combine(regionUpdated, regionRepository.getRegions()) { updated, regionResult ->
+            RegionViewState(
+                dataLoading = regionResult is Result.Loading,
+                regions = (regionResult as? Result.Success)?.data ?: emptyList(),
+                regionUpdated = updated
+            )
+        }
 
     fun setSelectedRegion(regionId: Long) = viewModelScope.launch {
         preferences.insertSelectedRegionId(regionId)
+        regionUpdated.value = true
     }
-
 }

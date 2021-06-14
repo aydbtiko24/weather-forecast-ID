@@ -8,6 +8,8 @@ import com.highair.weatherforecastid.data.source.local.regionEntities
 import com.highair.weatherforecastid.utils.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
@@ -68,4 +70,28 @@ class RegionViewModelTest {
         assertThat(latestRegionId).isEqualTo(region.id)
     }
 
+    @Test
+    fun `update region event, state updated`(): Unit = runBlockingTest {
+        initViewModel()
+
+        val region = regionEntities[0].asDomainModel()
+
+        val states = arrayListOf<RegionViewState>()
+
+        val job = launch {
+            viewModel.state.toList(states)
+        }
+
+        viewModel.setSelectedRegion(region.id)
+
+        advanceUntilIdle()
+
+        val updatedRegionState = states.map { it.regionUpdated }
+
+        assertThat(updatedRegionState).containsExactlyElementsIn(
+            listOf(false, true)
+        )
+
+        job.cancel()
+    }
 }

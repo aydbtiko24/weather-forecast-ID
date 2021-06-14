@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Weather Forecast ID</string>
     <string name="temp_c">%1$d ℃</string>
+    <string name="pick_region_label">Pick Region</string>
 </resources>
