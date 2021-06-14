@@ -4,9 +4,11 @@ buildscript {
         composeVersion = "1.0.0-beta08"
         hiltVersion = "2.36"
     }
+
     repositories {
         google()
         mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.0-beta03"
@@ -14,6 +16,7 @@ buildscript {
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
     }
 }
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir
