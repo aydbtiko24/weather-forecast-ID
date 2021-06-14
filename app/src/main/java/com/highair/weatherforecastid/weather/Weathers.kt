@@ -107,7 +107,8 @@ fun WeatherItemPreview() {
                     code = 0,
                     humidity = 85,
                     tempC = 23,
-                    tempF = 73
+                    tempF = 73,
+                    regionId = 501162
                 )
             )
         }
@@ -128,7 +129,8 @@ fun WeatherItemsPreview() {
                         code = 0,
                         humidity = 85,
                         tempC = 23,
-                        tempF = 73
+                        tempF = 73,
+                        regionId = 501162
                     ),
                     Weather(
                         id = 10,
@@ -137,7 +139,8 @@ fun WeatherItemsPreview() {
                         code = 0,
                         humidity = 65,
                         tempC = 32,
-                        tempF = 90
+                        tempF = 90,
+                        regionId = 501162
                     ),
                     Weather(
                         id = 11,
@@ -146,7 +149,8 @@ fun WeatherItemsPreview() {
                         code = 1,
                         humidity = 80,
                         tempC = 26,
-                        tempF = 79
+                        tempF = 79,
+                        regionId = 501162
                     ),
                     Weather(
                         id = 12,
@@ -155,7 +159,8 @@ fun WeatherItemsPreview() {
                         code = 1,
                         humidity = 90,
                         tempC = 23,
-                        tempF = 73
+                        tempF = 73,
+                        regionId = 501162
                     ),
                 )
             )

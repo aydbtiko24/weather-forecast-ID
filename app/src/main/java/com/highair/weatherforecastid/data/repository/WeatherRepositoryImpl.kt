@@ -30,7 +30,7 @@ class WeatherRepositoryImpl(
             localDataSource.addWeathers(response)
 
         override fun fetchFromLocal() = localDataSource.getCurrentWeather(
-            currentDateTime
+            currentDateTime, regionId
         )
 
         override suspend fun fetchFromRemote(): Result<List<Weather>> = try {

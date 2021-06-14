@@ -26,7 +26,6 @@ import com.highair.weatherforecastid.R
 import com.highair.weatherforecastid.models.Weather
 import com.highair.weatherforecastid.ui.components.WeatherSpacer
 import com.highair.weatherforecastid.ui.theme.WeatherForecastIDTheme
-import com.highair.weatherforecastid.ui.theme.keyLine2
 import com.highair.weatherforecastid.utils.asWeatherAnimId
 
 /**
@@ -104,7 +103,8 @@ fun CurrentWeatherItemPreview() {
                     code = 1,
                     humidity = 90,
                     tempC = 23,
-                    tempF = 73
+                    tempF = 73,
+                    regionId = 501162
                 )
             )
         }

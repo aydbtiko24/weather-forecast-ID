@@ -88,7 +88,10 @@ class WeatherDaoTest {
         assertThat(weatherDao.getWeathers().first()).isNotEmpty()
 
         // when get weather by date time
-        val selectedWeather = weatherDao.getCurrentWeather(weather.dateTime).first()
+        val selectedWeather = weatherDao.getCurrentWeather(
+            weather.dateTime,
+            weather.regionId
+        ).first()
 
         // then contains expected values
         assertThat(selectedWeather).isEqualTo(weather)

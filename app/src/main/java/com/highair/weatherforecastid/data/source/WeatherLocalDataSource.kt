@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
  */
 interface WeatherLocalDataSource {
     suspend fun addWeathers(weathers: List<Weather>)
-    fun getCurrentWeather(currentDateTime: Long): Flow<Weather>
+    fun getCurrentWeather(currentDateTime: Long, currentRegionId: Long): Flow<Weather>
     fun getWeatherDates(): Flow<List<String>>
     fun getWeathersByDate(selectedDate: Long): Flow<List<Weather>>
 }

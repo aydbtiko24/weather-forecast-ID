@@ -22,9 +22,9 @@ class WeatherLocalDataSourceImpl(
         dao.addWeathers(weathers.asEntities())
     }
 
-    override fun getCurrentWeather(currentDateTime: Long): Flow<Weather> {
+    override fun getCurrentWeather(currentDateTime: Long, currentRegionId: Long): Flow<Weather> {
         val dateTime = findClosestWeatherTime(currentDateTime)
-        return dao.getCurrentWeather(dateTime).map { entity ->
+        return dao.getCurrentWeather(dateTime, currentRegionId).map { entity ->
             entity?.asDomainModel() ?: Invalid.weather
         }
     }

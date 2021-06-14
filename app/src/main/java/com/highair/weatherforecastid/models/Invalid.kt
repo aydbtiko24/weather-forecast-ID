@@ -15,7 +15,8 @@ object Invalid {
         code = 0,
         humidity = 0,
         tempC = 0,
-        tempF = 0
+        tempF = 0,
+        regionId = id
     )
 
     val region = Region(

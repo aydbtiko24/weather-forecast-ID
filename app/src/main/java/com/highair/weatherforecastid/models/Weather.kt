@@ -11,5 +11,6 @@ data class Weather(
     val code: Int,
     val humidity: Long,
     val tempC: Long,
-    val tempF: Long
+    val tempF: Long,
+    val regionId: Long
 )

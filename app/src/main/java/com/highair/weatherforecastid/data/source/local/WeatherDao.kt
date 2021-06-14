@@ -26,8 +26,13 @@ interface WeatherDao {
     @Query("SELECT * FROM weather")
     fun getWeathers(): Flow<List<WeatherEntity>>
 
-    @Query("SELECT * FROM weather WHERE date_time =:currentDateTime")
-    fun getCurrentWeather(currentDateTime: Long): Flow<WeatherEntity?>
+    @Query(
+        """
+        SELECT * FROM weather 
+        WHERE date_time =:currentDateTime AND region_id =:currentRegionId
+        """
+    )
+    fun getCurrentWeather(currentDateTime: Long, currentRegionId: Long): Flow<WeatherEntity?>
 
     @Query("SELECT * FROM weather WHERE date_time BETWEEN :startDateTime AND :endDateTime")
     fun getWeathersByDateTime(startDateTime: Long, endDateTime: Long): Flow<List<WeatherEntity>>

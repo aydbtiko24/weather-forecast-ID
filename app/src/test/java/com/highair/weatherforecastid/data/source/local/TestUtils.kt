@@ -23,7 +23,8 @@ internal val weatherEntities = listOf(
         code = 1,
         humidity = 70,
         tempC = 24,
-        tempF = 75
+        tempF = 75,
+        regionId = 501397
     ),
     WeatherEntity(
         id = 2,
@@ -32,7 +33,8 @@ internal val weatherEntities = listOf(
         code = 1,
         humidity = 70,
         tempC = 32,
-        tempF = 90
+        tempF = 90,
+        regionId = 501397
     ),
     WeatherEntity(
         id = 3,
@@ -41,7 +43,8 @@ internal val weatherEntities = listOf(
         code = 3,
         humidity = 95,
         tempC = 24,
-        tempF = 75
+        tempF = 75,
+        regionId = 501397
     ),
     WeatherEntity(
         id = 4,
@@ -50,7 +53,8 @@ internal val weatherEntities = listOf(
         code = 3,
         humidity = 95,
         tempC = 23,
-        tempF = 73
+        tempF = 73,
+        regionId = 501397
     ),
 
     WeatherEntity(
@@ -60,7 +64,8 @@ internal val weatherEntities = listOf(
         code = 1,
         humidity = 70,
         tempC = 23,
-        tempF = 73
+        tempF = 73,
+        regionId = 501397
     ),
     WeatherEntity(
         id = 6,
@@ -69,7 +74,8 @@ internal val weatherEntities = listOf(
         code = 60,
         humidity = 70,
         tempC = 31,
-        tempF = 88
+        tempF = 88,
+        regionId = 501397
     ),
     WeatherEntity(
         id = 7,
@@ -78,7 +84,8 @@ internal val weatherEntities = listOf(
         code = 3,
         humidity = 95,
         tempC = 24,
-        tempF = 75
+        tempF = 75,
+        regionId = 501397
     ),
     WeatherEntity(
         id = 8,
@@ -87,7 +94,8 @@ internal val weatherEntities = listOf(
         code = 0,
         humidity = 85,
         tempC = 23,
-        tempF = 73
+        tempF = 73,
+        regionId = 501397
     ),
 
     WeatherEntity(
@@ -97,7 +105,8 @@ internal val weatherEntities = listOf(
         code = 0,
         humidity = 70,
         tempC = 24,
-        tempF = 75
+        tempF = 75,
+        regionId = 501397
     ),
     WeatherEntity(
         id = 10,
@@ -106,7 +115,8 @@ internal val weatherEntities = listOf(
         code = 0,
         humidity = 65,
         tempC = 32,
-        tempF = 90
+        tempF = 90,
+        regionId = 501397
     ),
     WeatherEntity(
         id = 11,
@@ -115,7 +125,8 @@ internal val weatherEntities = listOf(
         code = 1,
         humidity = 80,
         tempC = 26,
-        tempF = 79
+        tempF = 79,
+        regionId = 501397
     ),
     WeatherEntity(
         id = 12,
@@ -124,7 +135,8 @@ internal val weatherEntities = listOf(
         code = 1,
         humidity = 90,
         tempC = 23,
-        tempF = 73
+        tempF = 73,
+        regionId = 501397
     )
 )
 

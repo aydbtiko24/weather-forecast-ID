@@ -58,7 +58,7 @@ class WeatherRepositoryImplTest {
         val regionId = 12L
         val weather = Invalid.weather
 
-        every { localDataSource.getCurrentWeather(currentDateTime) } returns flowOf(
+        every { localDataSource.getCurrentWeather(currentDateTime, regionId) } returns flowOf(
             weather
         )
 
@@ -97,7 +97,7 @@ class WeatherRepositoryImplTest {
             val regionId = Invalid.id
             val weather = Invalid.weather
 
-            every { localDataSource.getCurrentWeather(currentDateTime) } returns flowOf(
+            every { localDataSource.getCurrentWeather(currentDateTime, regionId) } returns flowOf(
                 weather
             )
 

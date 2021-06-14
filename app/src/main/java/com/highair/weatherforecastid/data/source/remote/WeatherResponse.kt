@@ -23,7 +23,7 @@ data class WeatherDto(
 )
 
 /**Mapper*/
-fun WeatherDto.asDomainModel() = Weather(
+fun WeatherDto.asDomainModel(regionId: Long) = Weather(
     id = 0,
     name = this.name,
     dateTime = this.dateTime.asLocalDateTime(),
@@ -31,4 +31,5 @@ fun WeatherDto.asDomainModel() = Weather(
     humidity = this.humidity,
     tempC = this.tempC,
     tempF = this.tempF,
+    regionId = regionId,
 )

@@ -15,7 +15,7 @@ class WeatherRemoteDataSourceImpl(
         regionId: Long
     ): List<Weather> {
         return apiService.getWeathers(regionId).map {
-            it.asDomainModel()
+            it.asDomainModel(regionId)
         }
     }
 }

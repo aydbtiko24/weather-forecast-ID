@@ -26,7 +26,9 @@ data class WeatherEntity(
     @ColumnInfo(name = "temp_c")
     val tempC: Long,
     @ColumnInfo(name = "temp_f")
-    val tempF: Long
+    val tempF: Long,
+    @ColumnInfo(name = "region_id")
+    val regionId: Long
 )
 
 /**Mapper*/
@@ -37,7 +39,8 @@ fun WeatherEntity.asDomainModel() = Weather(
     code = this.code,
     humidity = this.humidity,
     tempC = this.tempC,
-    tempF = this.tempF
+    tempF = this.tempF,
+    regionId = this.regionId,
 )
 
 fun List<WeatherEntity>.asDomainModels() = this.map {
@@ -50,7 +53,8 @@ fun Weather.asEntity() = WeatherEntity(
     code = this.code,
     humidity = this.humidity,
     tempC = this.tempC,
-    tempF = this.tempF
+    tempF = this.tempF,
+    regionId = this.regionId
 )
 
 fun List<Weather>.asEntities() = this.map {

@@ -54,7 +54,9 @@ class WeatherLocalDataSourceImplTest {
         dao.insertWeathers(weathers.asEntities())
         // when get current weather
         val currentDateTime = 1623262965000 // 2021 06 10 01:22:45
-        val result = dataSource.getCurrentWeather(currentDateTime).first()
+        val result = dataSource.getCurrentWeather(
+            currentDateTime, weathers[0].regionId
+        ).first()
         // then return expected value
         val expected = weathers[0]
         assertThat(result).isEqualTo(expected)
@@ -65,7 +67,7 @@ class WeatherLocalDataSourceImplTest {
         // given empty weathers on db
         // when get current weather
         val currentDateTime = 1623262965000 // 2021 06 10 01:22:45
-        val result = dataSource.getCurrentWeather(currentDateTime).first()
+        val result = dataSource.getCurrentWeather(currentDateTime, weathers[0].regionId).first()
         // then return expected value
         assertThat(result.id).isEqualTo(Invalid.id)
     }

@@ -31,7 +31,7 @@ class DateFormatterExtTest {
         val endDateTime = dateTime.toEndDateTime()
 
         // then
-        val expectedEndDateTime = 1623517199000
+        val expectedEndDateTime = 1623517199059 // 2021 06 12 23:59:59:59
         assertEquals(endDateTime, expectedEndDateTime)
     }
 
