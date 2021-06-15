@@ -2,8 +2,10 @@
 Build with Jetpack Compose.
 
 ## Screen
-<img src="https://github.com/aydbtiko24/weather-forecast-ID/blob/main/media/1.png" width="270" height="540"/>
-<img src="https://github.com/aydbtiko24/weather-forecast-ID/blob/main/media/2.png" width="270" height="540"/>
+<p align="left">
+<img src="https://github.com/aydbtiko24/weather-forecast-ID/blob/main/media/1.png" style="display: inline;" width="270" height="540"/>
+<img src="https://github.com/aydbtiko24/weather-forecast-ID/blob/main/media/2.png" style="display: inline;" width="270" height="540"/>
+</p>
 
 ## Credits
 - [BMKG][1] - Main Weathers Data.
