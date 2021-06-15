@@ -1,9 +1,9 @@
 ## Weather Forecast ID
 Build with Jetpack Compose.
 
-## Screen Shoot
-<img src="https://github.com/aydbtiko24/weather-forecast-ID/blob/main/media/1.png"/>
-<img src="https://github.com/aydbtiko24/weather-forecast-ID/blob/main/media/2.png"/>
+## Screen
+<img src="https://github.com/aydbtiko24/weather-forecast-ID/blob/main/media/1.png" width="270" height="540"/>
+<img src="https://github.com/aydbtiko24/weather-forecast-ID/blob/main/media/2.png" width="270" height="540"/>
 
 ## Credits
 - [BMKG][1] - Main Weathers Data.
