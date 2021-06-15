@@ -6,15 +6,18 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.highair.weatherforecastid.ui.theme.WeatherForecastIDTheme
+import com.highair.weatherforecastid.ui.theme.keyLine2
 import com.highair.weatherforecastid.ui.theme.keyLine3
 
 /**
@@ -28,11 +31,7 @@ fun DateOptions(
     onSelectedChange: (String) -> Unit
 ) {
     LazyRow(
-        contentPadding = PaddingValues(
-            top = keyLine3,
-            start = keyLine3,
-            end = keyLine3
-        ),
+        contentPadding = PaddingValues(keyLine3),
         horizontalArrangement = Arrangement.spacedBy(keyLine3)
     ) {
         items(
@@ -54,18 +53,24 @@ fun DateOptionItem(
     dateOption: WeatherDateOption,
     modifier: Modifier = Modifier
 ) {
-    Surface(
-        shape = RoundedCornerShape(24.dp),
-        color = if (dateOption.selected) MaterialTheme.colors.secondary
-        else MaterialTheme.colors.secondary.copy(alpha = 0.1f)
-    ) {
-        Text(
-            text = dateOption.date,
-            color = if (dateOption.selected) MaterialTheme.colors.onSecondary
-            else MaterialTheme.colors.onSurface,
-            modifier = modifier.padding(keyLine3),
-            style = MaterialTheme.typography.body2
-        )
+    Surface {
+
+        val contentAlpha =
+            if (dateOption.selected) ContentAlpha.high
+            else ContentAlpha.disabled
+
+        CompositionLocalProvider(LocalContentAlpha provides contentAlpha) {
+
+            Text(
+                text = dateOption.date,
+                modifier = modifier.padding(keyLine2),
+                style = MaterialTheme.typography.body2.copy(
+                    fontWeight =
+                    if (dateOption.selected) FontWeight.Bold
+                    else FontWeight.Normal
+                )
+            )
+        }
     }
 }
 

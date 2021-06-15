@@ -2,39 +2,41 @@ package com.highair.weatherforecastid.weather
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.height
+import androidx.compose.material.BackdropScaffold
+import androidx.compose.material.BackdropScaffoldState
+import androidx.compose.material.BackdropValue
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.rememberBackdropScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.highair.weatherforecastid.R
 import com.highair.weatherforecastid.models.Invalid
 import com.highair.weatherforecastid.models.Region
 import com.highair.weatherforecastid.models.Weather
 import com.highair.weatherforecastid.ui.components.FullScreenLoading
 import com.highair.weatherforecastid.ui.theme.WeatherForecastIDTheme
-import com.highair.weatherforecastid.ui.theme.keyLine3
+import com.highair.weatherforecastid.ui.theme.keyLine4
+import com.highair.weatherforecastid.ui.theme.weatherAppBarSize
 
 /**
  * Created by aydbtiko on 6/12/2021.
  *
  */
-
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun WeatherScreen(
     viewModel: WeatherViewModel = hiltViewModel(),
-    openRegionPicker: () -> Unit
+    openRegionPicker: () -> Unit,
+    scaffoldState: BackdropScaffoldState
 ) {
 
     val viewState by viewModel.state.collectAsState(
@@ -48,10 +50,12 @@ fun WeatherScreen(
         weatherDates = viewState.weatherDates,
         weathers = viewState.weathers,
         openRegionPicker = openRegionPicker,
-        onSelectedDateChange = viewModel::setSelectedDate
+        onSelectedDateChange = viewModel::setSelectedDate,
+        scaffoldState = scaffoldState
     )
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun WeatherScreenContent(
     dataLoading: Boolean,
@@ -61,70 +65,67 @@ internal fun WeatherScreenContent(
     weathers: List<Weather>,
     openRegionPicker: () -> Unit,
     onSelectedDateChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    scaffoldState: BackdropScaffoldState
 ) {
 
-    val scrollState = rememberScrollState()
+    if (selectedRegion.id == Invalid.id) {
+        openRegionPicker()
+        return
+    }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = stringResource(id = R.string.app_name))
-                }
-            )
-        }
-    ) { innerPadding ->
-        Surface(
-            modifier = modifier.padding(innerPadding),
-            color = Color.LightGray.copy(alpha = 0.3f)
-        ) {
+    val contentAvailable = !dataLoading &&
+            selectedRegion.id != 0L &&
+            selectedRegion.id != Invalid.id &&
+            currentWeather.id != Invalid.id
 
-            if (selectedRegion.id == Invalid.id) {
-                openRegionPicker()
-            }
+    Scaffold {
 
-            if (dataLoading) {
-                FullScreenLoading()
-            }
-
-            if (!dataLoading && selectedRegion.id != 0L && selectedRegion.id != Invalid.id) {
-                Column(
-                    modifier = Modifier.verticalScroll(scrollState)
-                ) {
-
-                    RegionItem(
-                        region = selectedRegion,
-                        modifier = Modifier.clickable { openRegionPicker() }
-                    )
-
+        BackdropScaffold(
+            scaffoldState = scaffoldState,
+            frontLayerScrimColor = Color.Transparent,
+            peekHeight = weatherAppBarSize,
+            frontLayerElevation = keyLine4,
+            appBar = {
+                TopAppBar(
+                    content = {
+                        CurrentRegionItem(
+                            region = selectedRegion,
+                            modifier = Modifier
+                                .clickable { openRegionPicker() }
+                        )
+                    },
+                    modifier = Modifier.height(weatherAppBarSize),
+                    elevation = 0.dp
+                )
+            },
+            backLayerContent = {
+                if (contentAvailable) {
                     CurrentWeatherItem(
                         weather = currentWeather
                     )
-
-                    Surface(
-                        shape = RoundedCornerShape(
-                            topStart = keyLine3,
-                            topEnd = keyLine3
+                }
+            },
+            frontLayerContent = {
+                if (contentAvailable) {
+                    Column {
+                        DateOptions(
+                            dateOptions = weatherDates,
+                            onSelectedChange = onSelectedDateChange
                         )
-                    ) {
-                        Column {
-                            DateOptions(
-                                dateOptions = weatherDates,
-                                onSelectedChange = onSelectedDateChange
-                            )
-
-                            Weathers(
-                                weathers = weathers
-                            )
-                        }
+                        Weathers(
+                            weathers = weathers
+                        )
                     }
                 }
+                if (dataLoading) {
+                    FullScreenLoading()
+                }
             }
-        }
+        )
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 @Preview
 fun WeatherScreenPreview() {
@@ -213,7 +214,8 @@ fun WeatherScreenPreview() {
                 weatherDates = viewState.weatherDates,
                 weathers = viewState.weathers,
                 openRegionPicker = {},
-                onSelectedDateChange = {}
+                onSelectedDateChange = {},
+                scaffoldState = rememberBackdropScaffoldState(BackdropValue.Revealed)
             )
         }
     }

@@ -41,7 +41,20 @@ fun Long.asDateString(): String {
 }
 
 fun Long.asTimeString(): String {
-    return SimpleDateFormat("HH:mm", Locale.getDefault()).format(this)
+
+    val currentTime = SimpleDateFormat(
+        "HH:mm",
+        Locale.getDefault()
+    ).format(this)
+
+    val nextTime = when (currentTime) {
+        "00:00" -> "06:00"
+        "06:00" -> "12:00"
+        "12:00" -> "18:00"
+        else -> "23:59"
+    }
+
+    return "$currentTime - $nextTime"
 }
 
 fun String.asLocalDateTime(): Long {
@@ -86,4 +99,12 @@ fun findClosestWeatherTime(currentDateTime: Long): Long {
         set(Calendar.SECOND, 0)
         set(Calendar.MILLISECOND, 0)
     }.timeInMillis
+}
+
+fun Long.isCurrentWeather(
+    currentDateTime: Long = System.currentTimeMillis()
+): Boolean {
+    return this == findClosestWeatherTime(
+        currentDateTime
+    )
 }

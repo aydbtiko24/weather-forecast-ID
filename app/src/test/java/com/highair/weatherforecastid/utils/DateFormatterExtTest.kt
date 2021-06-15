@@ -1,6 +1,8 @@
 package com.highair.weatherforecastid.utils
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
@@ -51,13 +53,13 @@ class DateFormatterExtTest {
     @Test
     fun `get as time string, return expected value`() {
         // given
-        val dateTime = 1623262920000 // 2021 06 10 01:22:00
+        val dateTime = 1623258000000 // 2021 06 10 00:00:00
 
         // when
         val timeString = dateTime.asTimeString()
 
         // then
-        val expectedTimeString = "01:22"
+        val expectedTimeString = "00:00 - 06:00"
         assertEquals(timeString, expectedTimeString)
     }
 
@@ -137,5 +139,37 @@ class DateFormatterExtTest {
         // then
         val expectedWeatherTime = 1623258000000 // 2021 06 10 00:00:00
         assertEquals(currentDate, expectedWeatherTime)
+    }
+
+    @Test
+    fun `is current weather, return true`() {
+        // given
+        val currentDateTime = 1623327743000 // 2021 06 10 19:22:23
+
+        val weatherDateTime = 1623322800000 // 2021 06 10 18:00:00
+
+        // when
+        val isCurrentWeather = weatherDateTime.isCurrentWeather(
+            currentDateTime
+        )
+
+        // then
+        assertTrue(isCurrentWeather)
+    }
+
+    @Test
+    fun `is current weather, return false`() {
+        // given
+        val currentDateTime = 1623327743000 // 2021 06 10 19:22:23
+
+        val weatherDateTime = 1623304800000 // 2021 06 10 13:00:00
+
+        // when
+        val isCurrentWeather = weatherDateTime.isCurrentWeather(
+            currentDateTime
+        )
+
+        // then
+        assertFalse(isCurrentWeather)
     }
 }

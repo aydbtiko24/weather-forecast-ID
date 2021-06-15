@@ -1,5 +1,8 @@
 package com.highair.weatherforecastid.ui
 
+import androidx.compose.material.BackdropValue
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.rememberBackdropScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
@@ -24,6 +27,7 @@ object DestinationsResult {
     const val REGION_PICKER = "region_picker_result"
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun NavGraph(
     navController: NavHostController = rememberNavController(),
@@ -33,13 +37,16 @@ fun NavGraph(
         AppActions(navController)
     }
 
+    val scaffoldState = rememberBackdropScaffoldState(BackdropValue.Revealed)
+
     NavHost(
         navController = navController,
         startDestination = startDestinations
     ) {
         composable(AppDestinations.WEATHER) {
             WeatherScreen(
-                openRegionPicker = actions.navigateToRegionPicker
+                openRegionPicker = actions.navigateToRegionPicker,
+                scaffoldState = scaffoldState
             )
         }
         composable(AppDestinations.REGION_PICKER) {
