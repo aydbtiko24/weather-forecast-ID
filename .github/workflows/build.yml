@@ -1,0 +1,65 @@
+name: build
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '**/README.md'
+  workflow_dispatch:
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      # Cache gradle
+      - name: Cache Gradle and wrapper
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: cache-${{ runner.os }}-${{ matrix.jdk }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Run unit tests
+        run: ./gradlew test
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: unit_test_report
+          path: app/build/reports/tests/testDebugUnitTest/
+
+  build-apk:
+    needs: [ unit-test ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 12
+        uses: actions/setup-java@v1
+        with:
+          java-version: 12
+
+      # Cache gradle
+      - name: Cache Gradle and wrapper
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: cache-${{ runner.os }}-${{ matrix.jdk }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Build debug APK
+        run: bash ./gradlew assembleDebug --stacktrace
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: app
+          path: app/build/outputs/apk/debug/app-debug.apk
