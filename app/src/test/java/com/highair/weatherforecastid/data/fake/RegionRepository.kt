@@ -24,11 +24,14 @@ class RegionRepository : RegionRepository {
         }
     }
 
-    override fun getRegions(): Flow<Result<List<Region>>> = flow {
+    override fun getRegions(searchQuery: String) = flow {
         if (shouldLoading) {
             emit(Result.Loading)
         } else {
-            emit(Result.Success(regions.values.toList()))
+            emit(Result.Success(regions.values.toList().filter { region ->
+                region.district.lowercase().contains(searchQuery) ||
+                        region.province.lowercase().contains(searchQuery)
+            }))
         }
     }
 

@@ -89,7 +89,36 @@ class RegionViewModelTest {
         val updatedRegionState = states.map { it.regionUpdated }
 
         assertThat(updatedRegionState).containsExactlyElementsIn(
-            listOf(false, true)
+            listOf(true)
+        )
+
+        job.cancel()
+    }
+
+    @Test
+    fun `update search event, state updated`(): Unit = runBlockingTest {
+        initViewModel()
+
+        val region = regionEntities[0].asDomainModel()
+
+        val states = arrayListOf<RegionViewState>()
+
+        val job = launch {
+            viewModel.state.toList(states)
+        }
+
+        viewModel.searchRegion(region.district)
+
+        viewModel.searchRegion(region.district)
+
+        advanceUntilIdle()
+
+        val updatedRegionsState = states.flatMap { it.regions }
+
+        println("${updatedRegionsState.map { it.district }}}")
+
+        assertThat(updatedRegionsState).containsExactlyElementsIn(
+            listOf(region)
         )
 
         job.cancel()

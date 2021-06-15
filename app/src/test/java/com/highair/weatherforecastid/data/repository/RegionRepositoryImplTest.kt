@@ -67,7 +67,7 @@ class RegionRepositoryImplTest {
         }
 
         // when get regions
-        val result = regionRepository.getRegions().toList()
+        val result = regionRepository.getRegions("").toList()
 
         // data refreshed from remote data source
         coVerify(exactly = 1) {
@@ -103,7 +103,7 @@ class RegionRepositoryImplTest {
         }
 
         // when get regions
-        val result = regionRepository.getRegions().toList()
+        val result = regionRepository.getRegions("").toList()
 
         // data shouldn't refreshed from remote data source
         coVerify(exactly = 0) {

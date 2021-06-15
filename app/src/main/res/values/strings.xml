@@ -2,4 +2,6 @@
     <string name="app_name">Weather Forecast ID</string>
     <string name="temp_c">%1$d ℃</string>
     <string name="pick_region_label">Pick Region</string>
+    <string name="search_region_label">Search Region</string>
+    <string name="search_region_placeholder">Search Region by District Or Province..</string>
 </resources>
