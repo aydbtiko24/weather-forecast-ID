@@ -6,6 +6,7 @@ import com.highair.weatherforecastid.data.source.RegionLocalDataSource
 import com.highair.weatherforecastid.data.source.RegionRemoteDataSource
 import com.highair.weatherforecastid.data.source.local.asDomainModels
 import com.highair.weatherforecastid.data.source.local.regionEntities
+import com.highair.weatherforecastid.models.Region
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -132,5 +133,60 @@ class RegionRepositoryImplTest {
         regionRepository.getRegionBy(regionId)
 
         verify { localDataSource.getRegionsById(regionId) }
+    }
+
+    @Test
+    fun `search regions, search query not empty, shld't fetch remote`(): Unit = runBlocking {
+        every { localDataSource.getRegions() } returns flowOf(
+            emptyList()
+        )
+
+        coEvery { remoteDataSource.getRegions() } returns regions
+
+        coEvery { localDataSource.insertRegions(regions) } coAnswers {
+            println("inserting data to local data source")
+            // let's say data was inserted
+            every { localDataSource.getRegions() } returns flowOf(
+                regions
+            )
+        }
+
+        // when get regions
+        val result = regionRepository.getRegions("search query").toList()
+
+        // data shouldn't refreshed from remote data source
+        coVerify(exactly = 0) {
+            remoteDataSource.getRegions()
+        }
+
+        coVerify(exactly = 0) {
+            localDataSource.insertRegions(regions)
+        }
+
+        assertThat(result).containsExactlyElementsIn(
+            listOf(
+                Result.Success(emptyList<Region>())
+            )
+        )
+    }
+
+    @Test
+    fun `search regions, contain expected value`(): Unit = runBlocking {
+        val region = regions[1]
+
+        every { localDataSource.getRegions() } returns flowOf(
+            regions
+        )
+
+        // when get regions
+        val result = regionRepository.getRegions(region.district.lowercase()).toList()
+
+        assertThat(result).containsExactlyElementsIn(
+            listOf(
+                Result.Success(
+                    listOf(region)
+                )
+            )
+        )
     }
 }

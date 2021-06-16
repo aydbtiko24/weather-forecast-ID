@@ -20,7 +20,8 @@ class RegionRepositoryImpl(
     override fun getRegions(searchQuery: String): Flow<Result<List<Region>>> =
         object : NetworkBoundResource<List<Region>, List<Region>>() {
 
-            override fun shouldFetch(data: List<Region>) = data.isEmpty()
+            override fun shouldFetch(data: List<Region>) =
+               searchQuery.isEmpty() && data.isEmpty()
 
             override suspend fun saveRemoteData(response: List<Region>) =
                 localDataSource.insertRegions(response)
