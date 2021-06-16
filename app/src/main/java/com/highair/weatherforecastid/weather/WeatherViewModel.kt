@@ -32,8 +32,6 @@ class WeatherViewModel @Inject constructor(
     preferences: PreferencesLocalDataSource
 ) : ViewModel() {
 
-    private val forceUpdate = MutableStateFlow(false)
-
     private val selectedDate = MutableStateFlow(currentTimeMillis())
 
     private val selectedRegionId: Flow<Long> = preferences.getSelectedRegionId()
@@ -42,17 +40,10 @@ class WeatherViewModel @Inject constructor(
         regionRepository.getRegionBy(regionId)
     }
 
-    private val refreshActionEvent: Flow<Pair<Long, Boolean>> = combine(
-        selectedRegion,
-        forceUpdate
-    ) { region, update ->
-        Pair(region.id, update)
-    }
-
-    private val currentWeather: Flow<Result<Weather>> = refreshActionEvent.flatMapLatest {
+    private val currentWeather: Flow<Result<Weather>> = selectedRegionId.flatMapLatest { regionId ->
         weatherRepository.getCurrentWeather(
-            regionId = it.first,
-            update = it.second
+            regionId = regionId,
+            update = false
         )
     }
 
@@ -85,10 +76,6 @@ class WeatherViewModel @Inject constructor(
             weatherDates = dates,
             weathers = weathers
         )
-    }
-
-    fun refreshData() {
-        forceUpdate.value = true
     }
 
     fun setSelectedDate(date: String) {

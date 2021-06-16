@@ -41,39 +41,12 @@ class WeatherViewModelTest {
         weatherRepository = WeatherRepository()
         regionRepository = RegionRepository()
         preferences = PreferencesDataSource()
-
     }
 
     private fun initViewModel() {
         viewModel = WeatherViewModel(
             weatherRepository, regionRepository, preferences
         )
-    }
-
-    @Test
-    fun `set loading event, state are loading`(): Unit = runBlockingTest {
-        initViewModel()
-
-        val viewStates = arrayListOf<WeatherViewState>()
-
-        val job = launch {
-            viewModel.state.toList(viewStates)
-        }
-
-        viewModel.refreshData()
-
-        advanceUntilIdle()
-
-        val dataLoadingStates = viewStates.map { it.dataLoading }
-
-        println("$dataLoadingStates}")
-
-        assertThat(dataLoadingStates).containsExactlyElementsIn(
-            listOf(false, true)
-        )
-
-        job.cancel()
-
     }
 
     @Test
