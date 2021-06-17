@@ -3,6 +3,8 @@ package com.highair.weatherforecastid.region
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.highair.weatherforecastid.data.Result
+import com.highair.weatherforecastid.data.dataOrEmpty
+import com.highair.weatherforecastid.data.isLoading
 import com.highair.weatherforecastid.data.repository.RegionRepository
 import com.highair.weatherforecastid.data.source.PreferencesLocalDataSource
 import com.highair.weatherforecastid.models.Region
@@ -41,10 +43,10 @@ class RegionViewModel @Inject constructor(
         .flatMapLatest { query -> regionRepository.getRegions(query) }
 
     val state: Flow<RegionViewState> =
-        combine(regionUpdated, regions, searchQuery) { updated, regionResult, searchQuery ->
+        combine(regionUpdated, regions, searchQuery) { updated, regionsResult, searchQuery ->
             RegionViewState(
-                dataLoading = regionResult is Result.Loading,
-                regions = (regionResult as? Result.Success)?.data ?: emptyList(),
+                dataLoading = regionsResult.isLoading(),
+                regions = regionsResult.dataOrEmpty(),
                 regionUpdated = updated,
                 searchQuery = searchQuery
             )

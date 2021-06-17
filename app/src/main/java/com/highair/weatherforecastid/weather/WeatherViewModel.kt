@@ -2,6 +2,8 @@ package com.highair.weatherforecastid.weather
 
 import androidx.lifecycle.ViewModel
 import com.highair.weatherforecastid.data.Result
+import com.highair.weatherforecastid.data.dataOr
+import com.highair.weatherforecastid.data.isLoading
 import com.highair.weatherforecastid.data.repository.RegionRepository
 import com.highair.weatherforecastid.data.repository.WeatherRepository
 import com.highair.weatherforecastid.data.source.PreferencesLocalDataSource
@@ -70,9 +72,9 @@ class WeatherViewModel @Inject constructor(
     ) { region, weatherResult, dates, weathers ->
 
         WeatherViewState(
-            dataLoading = weatherResult is Result.Loading,
+            dataLoading = weatherResult.isLoading(),
             selectedRegion = region,
-            currentWeather = (weatherResult as? Result.Success)?.data ?: Invalid.weather,
+            currentWeather = weatherResult dataOr Invalid.weather,
             weatherDates = dates,
             weathers = weathers
         )
