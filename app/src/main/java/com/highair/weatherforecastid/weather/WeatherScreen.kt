@@ -19,7 +19,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.highair.weatherforecastid.models.Invalid
 import com.highair.weatherforecastid.models.Region
 import com.highair.weatherforecastid.models.Weather
 import com.highair.weatherforecastid.ui.components.FullScreenLoading
@@ -45,6 +44,8 @@ fun WeatherScreen(
 
     WeatherScreenContent(
         dataLoading = viewState.dataLoading,
+        hasInvalidRegion = viewState.hasInvalidRegion,
+        hasContent = viewState.hasContent,
         selectedRegion = viewState.selectedRegion,
         currentWeather = viewState.currentWeather,
         weatherDates = viewState.weatherDates,
@@ -59,6 +60,8 @@ fun WeatherScreen(
 @Composable
 internal fun WeatherScreenContent(
     dataLoading: Boolean,
+    hasInvalidRegion: Boolean,
+    hasContent: Boolean,
     selectedRegion: Region,
     currentWeather: Weather,
     weatherDates: List<WeatherDateOption>,
@@ -68,15 +71,10 @@ internal fun WeatherScreenContent(
     scaffoldState: BackdropScaffoldState
 ) {
 
-    if (selectedRegion.id == Invalid.id) {
+    if (hasInvalidRegion) {
         openRegionPicker()
         return
     }
-
-    val contentAvailable = !dataLoading &&
-            selectedRegion.id != 0L &&
-            selectedRegion.id != Invalid.id &&
-            currentWeather.id != Invalid.id
 
     Scaffold {
 
@@ -99,14 +97,14 @@ internal fun WeatherScreenContent(
                 )
             },
             backLayerContent = {
-                if (contentAvailable) {
+                if (hasContent) {
                     CurrentWeatherItem(
                         weather = currentWeather
                     )
                 }
             },
             frontLayerContent = {
-                if (contentAvailable) {
+                if (hasContent) {
                     Column {
                         DateOptions(
                             dateOptions = weatherDates,
@@ -209,6 +207,8 @@ fun WeatherScreenPreview() {
         Surface {
             WeatherScreenContent(
                 dataLoading = viewState.dataLoading,
+                hasInvalidRegion = viewState.hasInvalidRegion,
+                hasContent = viewState.hasContent,
                 selectedRegion = viewState.selectedRegion,
                 currentWeather = viewState.currentWeather,
                 weatherDates = viewState.weatherDates,
