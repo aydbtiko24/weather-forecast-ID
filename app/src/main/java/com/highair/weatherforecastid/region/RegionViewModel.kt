@@ -12,7 +12,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -33,22 +32,21 @@ class RegionViewModel @Inject constructor(
 
     private val regionUpdated = MutableStateFlow(false)
 
-    private val _searchQuery = MutableStateFlow("")
-    val searchQuery: StateFlow<String>
-        get() = _searchQuery
+    private val searchQuery = MutableStateFlow("")
 
-    private val regions: Flow<Result<List<Region>>> = _searchQuery
+    private val regions: Flow<Result<List<Region>>> = searchQuery
         .debounce(200)
         .map { it.lowercase() }
         .distinctUntilChanged()
         .flatMapLatest { query -> regionRepository.getRegions(query) }
 
     val state: Flow<RegionViewState> =
-        combine(regionUpdated, regions) { updated, regionResult ->
+        combine(regionUpdated, regions, searchQuery) { updated, regionResult, searchQuery ->
             RegionViewState(
                 dataLoading = regionResult is Result.Loading,
                 regions = (regionResult as? Result.Success)?.data ?: emptyList(),
-                regionUpdated = updated
+                regionUpdated = updated,
+                searchQuery = searchQuery
             )
         }
 
@@ -58,7 +56,7 @@ class RegionViewModel @Inject constructor(
     }
 
     fun searchRegion(query: String) {
-        _searchQuery.value = query
+        searchQuery.value = query
     }
 
 }

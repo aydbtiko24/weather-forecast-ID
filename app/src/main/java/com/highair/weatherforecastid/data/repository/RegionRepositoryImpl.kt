@@ -21,14 +21,15 @@ class RegionRepositoryImpl(
         object : NetworkBoundResource<List<Region>, List<Region>>() {
 
             override fun shouldFetch(data: List<Region>) =
-               searchQuery.isEmpty() && data.isEmpty()
+                searchQuery.isEmpty() && data.isEmpty()
 
             override suspend fun saveRemoteData(response: List<Region>) =
                 localDataSource.insertRegions(response)
 
             override fun fetchFromLocal() = localDataSource.getRegions().map {
                 it.filter { region ->
-                    region.district.lowercase().contains(searchQuery) ||
+                    if (searchQuery.isEmpty()) return@filter true
+                    region.district.lowercase().contains(searchQuery) or
                             region.province.lowercase().contains(searchQuery)
                 }
             }

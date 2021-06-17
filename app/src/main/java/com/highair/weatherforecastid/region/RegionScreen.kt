@@ -48,13 +48,11 @@ fun RegionScreen(
         initial = RegionViewState.EMPTY
     )
 
-    val searchText by viewModel.searchQuery.collectAsState()
-
     RegionScreenContent(
         regionUpdated = viewState.regionUpdated,
         dataLoading = viewState.dataLoading,
         regions = viewState.regions,
-        searchText = searchText,
+        searchQuery = viewState.searchQuery,
         onRegionSelected = viewModel::setSelectedRegion,
         navigateUp = navigateUp,
         searchRegion = viewModel::searchRegion
@@ -67,7 +65,7 @@ internal fun RegionScreenContent(
     regionUpdated: Boolean,
     dataLoading: Boolean,
     regions: List<Region>,
-    searchText: String,
+    searchQuery: String,
     onRegionSelected: (Long) -> Unit,
     navigateUp: () -> Unit,
     searchRegion: (String) -> Unit,
@@ -109,7 +107,7 @@ internal fun RegionScreenContent(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = keyLine2),
-                            value = searchText,
+                            value = searchQuery,
                             onValueChange = searchRegion,
                             label = {
                                 Text(
@@ -186,7 +184,9 @@ fun RegionScreenPreview() {
                 city = "Kab. Nias Barat",
                 district = "Lahomi"
             ),
-        )
+        ),
+        regionUpdated = false,
+        searchQuery = ""
     )
 
     WeatherForecastIDTheme {
@@ -195,7 +195,7 @@ fun RegionScreenPreview() {
                 regionUpdated = viewState.regionUpdated,
                 dataLoading = viewState.dataLoading,
                 regions = viewState.regions,
-                searchText = "Bali",
+                searchQuery = "Bali",
                 onRegionSelected = {},
                 navigateUp = {},
                 searchRegion = {}
