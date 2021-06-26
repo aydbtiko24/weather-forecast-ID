@@ -1,5 +1,5 @@
 ## Weather Forecast ID
-Build with Jetpack Compose.
+Built with Jetpack Compose.
 
 ## Screen
 <p align="left">
