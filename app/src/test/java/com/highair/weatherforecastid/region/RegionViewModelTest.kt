@@ -1,10 +1,10 @@
 package com.highair.weatherforecastid.region
 
 import com.google.common.truth.Truth.assertThat
-import com.highair.weatherforecastid.data.fake.PreferencesDataSource
-import com.highair.weatherforecastid.data.fake.RegionRepository
+import com.highair.weatherforecastid.data.FakePreferencesDataSource
+import com.highair.weatherforecastid.data.FakeRegionRepository
 import com.highair.weatherforecastid.data.source.local.asDomainModel
-import com.highair.weatherforecastid.data.source.local.regionEntities
+import com.highair.weatherforecastid.data.regionEntities
 import com.highair.weatherforecastid.utils.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -22,8 +22,8 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class RegionViewModelTest {
 
-    private lateinit var regionRepository: RegionRepository
-    private lateinit var preferences: PreferencesDataSource
+    private lateinit var regionRepository: FakeRegionRepository
+    private lateinit var preferences: FakePreferencesDataSource
 
     private lateinit var viewModel: RegionViewModel
 
@@ -32,8 +32,8 @@ class RegionViewModelTest {
 
     @Before
     fun setUp() {
-        regionRepository = RegionRepository()
-        preferences = PreferencesDataSource()
+        regionRepository = FakeRegionRepository()
+        preferences = FakePreferencesDataSource()
     }
 
     private fun initViewModel() {

@@ -5,7 +5,7 @@ import com.highair.weatherforecastid.data.Result
 import com.highair.weatherforecastid.data.source.WeatherLocalDataSource
 import com.highair.weatherforecastid.data.source.WeatherRemoteDataSource
 import com.highair.weatherforecastid.data.source.local.asDomainModels
-import com.highair.weatherforecastid.data.source.local.weatherEntities
+import com.highair.weatherforecastid.data.weatherEntities
 import com.highair.weatherforecastid.models.Invalid
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery

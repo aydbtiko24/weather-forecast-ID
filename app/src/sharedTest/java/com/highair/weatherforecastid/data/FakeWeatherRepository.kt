@@ -1,9 +1,7 @@
-package com.highair.weatherforecastid.data.fake
+package com.highair.weatherforecastid.data
 
-import com.highair.weatherforecastid.data.Result
 import com.highair.weatherforecastid.data.repository.WeatherRepository
 import com.highair.weatherforecastid.data.source.local.asDomainModels
-import com.highair.weatherforecastid.data.source.local.weatherEntities
 import com.highair.weatherforecastid.models.Weather
 import com.highair.weatherforecastid.utils.asDateString
 import com.highair.weatherforecastid.utils.toEndDateTime
@@ -16,7 +14,7 @@ import kotlinx.coroutines.flow.flowOf
  * Created by aydbtiko on 6/12/2021.
  *
  */
-class WeatherRepository : WeatherRepository {
+class FakeWeatherRepository : WeatherRepository {
 
     private val weathers = HashMap<Long, Weather>().apply {
         weatherEntities.asDomainModels().forEach { weather ->

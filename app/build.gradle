@@ -18,10 +18,12 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.highair.weatherforecastid.HiltTestRunner"
+
         vectorDrawables {
             useSupportLibrary true
         }
+
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments += [
@@ -52,6 +54,18 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion composeVersion
+    }
+
+    android {
+        sourceSets {
+            String sharedTestDir = 'src/sharedTest/java'
+            test {
+                java.srcDirs += sharedTestDir
+            }
+            androidTest {
+                java.srcDirs += sharedTestDir
+            }
+        }
     }
 }
 
@@ -120,6 +134,8 @@ dependencies {
 
     testImplementation "com.squareup.okhttp3:mockwebserver:4.9.1"
 
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hiltVersion"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hiltVersion"
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {

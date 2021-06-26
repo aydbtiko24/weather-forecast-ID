@@ -1,9 +1,7 @@
-package com.highair.weatherforecastid.data.fake
+package com.highair.weatherforecastid.data
 
-import com.highair.weatherforecastid.data.Result
 import com.highair.weatherforecastid.data.repository.RegionRepository
 import com.highair.weatherforecastid.data.source.local.asDomainModels
-import com.highair.weatherforecastid.data.source.local.regionEntities
 import com.highair.weatherforecastid.models.Invalid
 import com.highair.weatherforecastid.models.Region
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +12,7 @@ import kotlinx.coroutines.flow.flowOf
  * Created by aydbtiko on 6/12/2021.
  *
  */
-class RegionRepository : RegionRepository {
+class FakeRegionRepository : RegionRepository {
 
     var shouldLoading = false
 

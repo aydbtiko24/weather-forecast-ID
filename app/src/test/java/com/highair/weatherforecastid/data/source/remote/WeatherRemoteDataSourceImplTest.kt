@@ -1,7 +1,7 @@
 package com.highair.weatherforecastid.data.source.remote
 
 import com.google.common.truth.Truth.assertThat
-import com.highair.weatherforecastid.data.source.local.weatherEntities
+import com.highair.weatherforecastid.data.weatherEntities
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After

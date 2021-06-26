@@ -1,13 +1,13 @@
 package com.highair.weatherforecastid.weather
 
 import com.google.common.truth.Truth.assertThat
-import com.highair.weatherforecastid.data.fake.PreferencesDataSource
-import com.highair.weatherforecastid.data.fake.RegionRepository
-import com.highair.weatherforecastid.data.fake.WeatherRepository
+import com.highair.weatherforecastid.data.FakePreferencesDataSource
+import com.highair.weatherforecastid.data.FakeRegionRepository
+import com.highair.weatherforecastid.data.FakeWeatherRepository
 import com.highair.weatherforecastid.data.source.local.asDomainModel
 import com.highair.weatherforecastid.data.source.local.asDomainModels
-import com.highair.weatherforecastid.data.source.local.regionEntities
-import com.highair.weatherforecastid.data.source.local.weatherEntities
+import com.highair.weatherforecastid.data.regionEntities
+import com.highair.weatherforecastid.data.weatherEntities
 import com.highair.weatherforecastid.models.Invalid
 import com.highair.weatherforecastid.utils.MainCoroutineRule
 import com.highair.weatherforecastid.utils.asDateString
@@ -27,9 +27,9 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class WeatherViewModelTest {
 
-    private lateinit var weatherRepository: WeatherRepository
-    private lateinit var regionRepository: RegionRepository
-    private lateinit var preferences: PreferencesDataSource
+    private lateinit var weatherRepository: FakeWeatherRepository
+    private lateinit var regionRepository: FakeRegionRepository
+    private lateinit var preferences: FakePreferencesDataSource
 
     private lateinit var viewModel: WeatherViewModel
 
@@ -38,9 +38,9 @@ class WeatherViewModelTest {
 
     @Before
     fun setUp() {
-        weatherRepository = WeatherRepository()
-        regionRepository = RegionRepository()
-        preferences = PreferencesDataSource()
+        weatherRepository = FakeWeatherRepository()
+        regionRepository = FakeRegionRepository()
+        preferences = FakePreferencesDataSource()
     }
 
     private fun initViewModel() {

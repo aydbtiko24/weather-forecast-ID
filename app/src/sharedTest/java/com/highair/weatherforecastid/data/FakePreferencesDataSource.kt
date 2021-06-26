@@ -1,4 +1,4 @@
-package com.highair.weatherforecastid.data.fake
+package com.highair.weatherforecastid.data
 
 import com.highair.weatherforecastid.data.source.PreferencesLocalDataSource
 import com.highair.weatherforecastid.models.Invalid
@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
  * Created by aydbtiko on 6/12/2021.
  *
  */
-class PreferencesDataSource : PreferencesLocalDataSource {
+class FakePreferencesDataSource : PreferencesLocalDataSource {
 
     private val selectedRegionKey = PreferencesLocalDataSource.SELECTED_REGION.name
 

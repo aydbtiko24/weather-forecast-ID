@@ -2,6 +2,7 @@ package com.highair.weatherforecastid.data.source.local
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
+import com.highair.weatherforecastid.data.weatherEntities
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
