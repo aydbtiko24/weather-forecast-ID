@@ -1,8 +1,10 @@
 package com.highair.weatherforecastid.weather
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.BackdropScaffold
 import androidx.compose.material.BackdropScaffoldState
 import androidx.compose.material.BackdropValue
@@ -22,6 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.highair.weatherforecastid.models.Region
 import com.highair.weatherforecastid.models.Weather
 import com.highair.weatherforecastid.ui.components.FullScreenLoading
+import com.highair.weatherforecastid.ui.components.WeatherDivider
 import com.highair.weatherforecastid.ui.theme.WeatherForecastIDTheme
 import com.highair.weatherforecastid.ui.theme.keyLine4
 import com.highair.weatherforecastid.ui.theme.weatherAppBarSize
@@ -56,7 +59,7 @@ fun WeatherScreen(
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class,ExperimentalFoundationApi::class)
 @Composable
 internal fun WeatherScreenContent(
     dataLoading: Boolean,
@@ -105,14 +108,20 @@ internal fun WeatherScreenContent(
             },
             frontLayerContent = {
                 if (hasContent) {
-                    Column {
-                        DateOptions(
-                            dateOptions = weatherDates,
-                            onSelectedChange = onSelectedDateChange
-                        )
-                        Weathers(
-                            weathers = weathers
-                        )
+                    LazyColumn {
+                        stickyHeader {
+                            DateOptions(
+                                dateOptions = weatherDates,
+                                onSelectedChange = onSelectedDateChange
+                            )
+                        }
+                        items(
+                            items = weathers,
+                            key = { weather -> weather.id }
+                        ) { weather ->
+                            WeatherItem(weather)
+                            WeatherDivider()
+                        }
                     }
                 }
                 if (dataLoading) {

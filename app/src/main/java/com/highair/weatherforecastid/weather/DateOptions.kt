@@ -1,5 +1,6 @@
 package com.highair.weatherforecastid.weather
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -31,6 +32,7 @@ fun DateOptions(
     onSelectedChange: (String) -> Unit
 ) {
     LazyRow(
+        modifier = Modifier.background(color = MaterialTheme.colors.surface),
         contentPadding = PaddingValues(keyLine3),
         horizontalArrangement = Arrangement.spacedBy(keyLine3)
     ) {

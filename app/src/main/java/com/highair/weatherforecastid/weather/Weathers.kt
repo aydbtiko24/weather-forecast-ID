@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
@@ -23,7 +21,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.highair.weatherforecastid.R
 import com.highair.weatherforecastid.models.Weather
-import com.highair.weatherforecastid.ui.components.WeatherDivider
 import com.highair.weatherforecastid.ui.components.WeatherSpacer
 import com.highair.weatherforecastid.ui.theme.WeatherForecastIDTheme
 import com.highair.weatherforecastid.ui.theme.keyLine0
@@ -36,21 +33,6 @@ import com.highair.weatherforecastid.utils.isCurrentWeather
  * Created by aydbtiko on 6/13/2021.
  *
  */
-
-@Composable
-fun Weathers(
-    weathers: List<Weather>
-) {
-    LazyColumn {
-        items(
-            items = weathers,
-            key = { weather -> weather.id }
-        ) { weather ->
-            WeatherItem(weather)
-            WeatherDivider()
-        }
-    }
-}
 
 @Composable
 fun WeatherItem(
@@ -126,57 +108,3 @@ fun WeatherItemPreview() {
         }
     }
 }
-
-@Composable
-@Preview
-fun WeatherItemsPreview() {
-    WeatherForecastIDTheme {
-        Surface {
-            Weathers(
-                listOf(
-                    Weather(
-                        id = 8,
-                        name = "Cerah",
-                        dateTime = 1623409200000,
-                        code = 0,
-                        humidity = 85,
-                        tempC = 23,
-                        tempF = 73,
-                        regionId = 501162
-                    ),
-                    Weather(
-                        id = 10,
-                        name = "Cerah",
-                        dateTime = 1623452400000,
-                        code = 0,
-                        humidity = 65,
-                        tempC = 32,
-                        tempF = 90,
-                        regionId = 501162
-                    ),
-                    Weather(
-                        id = 11,
-                        name = "Cerah Berawan",
-                        dateTime = 1623474000000,
-                        code = 1,
-                        humidity = 80,
-                        tempC = 26,
-                        tempF = 79,
-                        regionId = 501162
-                    ),
-                    Weather(
-                        id = 12,
-                        name = "Cerah Berawan",
-                        dateTime = 1623495600000,
-                        code = 1,
-                        humidity = 90,
-                        tempC = 23,
-                        tempF = 73,
-                        regionId = 501162
-                    ),
-                )
-            )
-        }
-    }
-}
-
