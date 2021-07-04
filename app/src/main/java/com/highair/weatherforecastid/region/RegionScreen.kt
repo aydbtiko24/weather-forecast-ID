@@ -22,6 +22,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -106,7 +107,9 @@ internal fun RegionScreenContent(
                         TextField(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = keyLine2),
+                                .padding(top = keyLine2)
+                                .testTag(stringResource(id = R.string.search_region_label))
+                            ,
                             value = searchQuery,
                             onValueChange = searchRegion,
                             label = {
