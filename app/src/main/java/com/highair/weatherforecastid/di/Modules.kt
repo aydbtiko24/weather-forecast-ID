@@ -32,21 +32,29 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataModule {
+object DatabaseModule {
     // database
     @Provides
     @Singleton
     fun provideAppDatabase(application: Application): AppDatabase {
         return AppDatabase.create(application)
     }
+}
 
+@Module
+@InstallIn(SingletonComponent::class)
+object ApiServiceModule {
     // api service
     @Provides
     @Singleton
     fun provideApiService(): ApiService {
         return ApiService.create()
     }
+}
 
+@Module
+@InstallIn(SingletonComponent::class)
+object DataModule {
     // preference
     @Provides
     @Singleton

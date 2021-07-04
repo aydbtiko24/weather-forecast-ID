@@ -67,6 +67,11 @@ android {
             }
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/AL2.0'
+        exclude 'META-INF/LGPL2.1'
+    }
 }
 
 dependencies {
@@ -118,6 +123,7 @@ dependencies {
     testImplementation "androidx.room:room-testing:$roomVersion"
 
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
 
     testImplementation "junit:junit:4.13.2"
     testImplementation "androidx.test.ext:junit:1.1.2"

@@ -17,7 +17,7 @@ class FakePreferencesDataSource : PreferencesLocalDataSource {
         this[selectedRegionKey] = Invalid.id
     }
 
-    val state = MutableStateFlow((data[selectedRegionKey] as? Long) ?: Invalid.id)
+    var state = MutableStateFlow((data[selectedRegionKey] as? Long) ?: Invalid.id)
 
     override suspend fun insertSelectedRegionId(regionId: Long) {
         data[selectedRegionKey] = regionId
@@ -30,5 +30,6 @@ class FakePreferencesDataSource : PreferencesLocalDataSource {
     fun addedRegionId(): Long {
       return  (data[selectedRegionKey] as? Long) ?: Invalid.id
     }
-
 }
+
+fun PreferencesLocalDataSource.asFake() = this as FakePreferencesDataSource

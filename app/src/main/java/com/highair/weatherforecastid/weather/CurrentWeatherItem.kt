@@ -37,6 +37,8 @@ import com.highair.weatherforecastid.utils.asWeatherAnimId
  *
  */
 
+var lottieAnimationRepeatCount = Int.MAX_VALUE
+
 @Composable
 fun CurrentWeatherItem(
     weather: Weather,
@@ -46,7 +48,7 @@ fun CurrentWeatherItem(
     val animationSpec = remember { LottieAnimationSpec.RawRes(weather.code.asWeatherAnimId()) }
     val animationState = rememberLottieAnimationState(
         autoPlay = true,
-        repeatCount = Integer.MAX_VALUE
+        repeatCount = lottieAnimationRepeatCount
     )
 
     Column(
