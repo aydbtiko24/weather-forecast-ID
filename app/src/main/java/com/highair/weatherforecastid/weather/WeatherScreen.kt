@@ -59,7 +59,7 @@ fun WeatherScreen(
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class,ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
 @Composable
 internal fun WeatherScreenContent(
     dataLoading: Boolean,
