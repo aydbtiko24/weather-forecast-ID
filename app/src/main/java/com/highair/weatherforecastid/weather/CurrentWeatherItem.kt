@@ -14,7 +14,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -24,8 +24,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieAnimationSpec
-import com.airbnb.lottie.compose.rememberLottieAnimationState
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.highair.weatherforecastid.R
 import com.highair.weatherforecastid.models.Weather
 import com.highair.weatherforecastid.ui.components.WeatherSpacer
@@ -36,7 +36,6 @@ import com.highair.weatherforecastid.utils.asWeatherAnimId
  * Created by aydbtiko on 6/13/2021.
  *
  */
-
 var lottieAnimationRepeatCount = Int.MAX_VALUE
 
 @Composable
@@ -44,19 +43,16 @@ fun CurrentWeatherItem(
     weather: Weather,
     modifier: Modifier = Modifier
 ) {
-
-    val animationSpec = remember { LottieAnimationSpec.RawRes(weather.code.asWeatherAnimId()) }
-    val animationState = rememberLottieAnimationState(
-        autoPlay = true,
-        repeatCount = lottieAnimationRepeatCount
+    val composition by rememberLottieComposition(
+        LottieCompositionSpec.RawRes(weather.code.asWeatherAnimId())
     )
 
     Column(
         modifier = modifier
     ) {
         LottieAnimation(
-            spec = animationSpec,
-            animationState = animationState,
+            composition = composition,
+            iterations = lottieAnimationRepeatCount,
             modifier = Modifier
                 .size(190.dp)
                 .fillMaxSize()
