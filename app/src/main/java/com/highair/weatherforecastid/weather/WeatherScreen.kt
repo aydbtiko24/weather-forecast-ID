@@ -9,7 +9,6 @@ import androidx.compose.material.BackdropScaffold
 import androidx.compose.material.BackdropScaffoldState
 import androidx.compose.material.BackdropValue
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.rememberBackdropScaffoldState
@@ -40,7 +39,6 @@ fun WeatherScreen(
     openRegionPicker: () -> Unit,
     scaffoldState: BackdropScaffoldState
 ) {
-
     val viewState by viewModel.state.collectAsState(
         initial = WeatherViewState.EMPTY
     )
@@ -73,62 +71,75 @@ internal fun WeatherScreenContent(
     onSelectedDateChange: (String) -> Unit,
     scaffoldState: BackdropScaffoldState
 ) {
-
     if (hasInvalidRegion) {
         openRegionPicker()
         return
     }
 
-    Scaffold {
-
-        BackdropScaffold(
-            scaffoldState = scaffoldState,
-            frontLayerScrimColor = Color.Transparent,
-            peekHeight = weatherAppBarSize,
-            frontLayerElevation = keyLine4,
-            appBar = {
-                TopAppBar(
-                    content = {
-                        CurrentRegionItem(
-                            region = selectedRegion,
-                            modifier = Modifier
-                                .clickable { openRegionPicker() }
-                        )
-                    },
-                    modifier = Modifier.height(weatherAppBarSize),
-                    elevation = 0.dp
-                )
-            },
-            backLayerContent = {
-                if (hasContent) {
-                    CurrentWeatherItem(
-                        weather = currentWeather
+    BackdropScaffold(
+        scaffoldState = scaffoldState,
+        frontLayerScrimColor = Color.Transparent,
+        peekHeight = weatherAppBarSize,
+        frontLayerElevation = keyLine4,
+        appBar = {
+            TopAppBar(
+                content = {
+                    CurrentRegionItem(
+                        region = selectedRegion,
+                        modifier = Modifier.clickable { openRegionPicker() }
                     )
-                }
-            },
-            frontLayerContent = {
-                if (hasContent) {
-                    LazyColumn {
-                        stickyHeader {
-                            DateOptions(
-                                dateOptions = weatherDates,
-                                onSelectedChange = onSelectedDateChange
-                            )
-                        }
-                        items(
-                            items = weathers,
-                            key = { weather -> weather.id }
-                        ) { weather ->
-                            WeatherItem(weather)
-                            WeatherDivider()
-                        }
-                    }
-                }
-                if (dataLoading) {
-                    FullScreenLoading()
-                }
+                },
+                modifier = Modifier.height(weatherAppBarSize),
+                elevation = 0.dp
+            )
+        },
+        backLayerContent = {
+            if (hasContent) {
+                CurrentWeatherItem(
+                    weather = currentWeather
+                )
             }
-        )
+        },
+        frontLayerContent = {
+            WeatherFrontLayerContent(
+                dataLoading = dataLoading,
+                hasContent = hasContent,
+                weatherDates = weatherDates,
+                weathers = weathers,
+                onSelectedDateChange = onSelectedDateChange
+            )
+        }
+    )
+}
+
+@OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
+@Composable
+internal fun WeatherFrontLayerContent(
+    dataLoading: Boolean,
+    hasContent: Boolean,
+    weatherDates: List<WeatherDateOption>,
+    weathers: List<Weather>,
+    onSelectedDateChange: (String) -> Unit
+) {
+    if (hasContent) {
+        LazyColumn {
+            stickyHeader {
+                DateOptions(
+                    dateOptions = weatherDates,
+                    onSelectedChange = onSelectedDateChange
+                )
+            }
+            items(
+                items = weathers,
+                key = { weather -> weather.id }
+            ) { weather ->
+                WeatherItem(weather)
+                WeatherDivider()
+            }
+        }
+    }
+    if (dataLoading) {
+        FullScreenLoading()
     }
 }
 
