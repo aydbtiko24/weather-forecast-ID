@@ -21,7 +21,7 @@ class DateFormatterExtTest {
 
         // then
         val expectedStartDateTime = 1623430800000
-        assertEquals(startDateTime, expectedStartDateTime)
+        assertEquals(expectedStartDateTime, startDateTime)
     }
 
     @Test
@@ -34,7 +34,7 @@ class DateFormatterExtTest {
 
         // then
         val expectedEndDateTime = 1623517199059 // 2021 06 12 23:59:59:59
-        assertEquals(endDateTime, expectedEndDateTime)
+        assertEquals(expectedEndDateTime, endDateTime)
     }
 
     @Test
@@ -47,7 +47,7 @@ class DateFormatterExtTest {
 
         // then
         val expectedDateString = "Thu, 10 Jun"
-        assertEquals(dateString, expectedDateString)
+        assertEquals(expectedDateString, dateString)
     }
 
     @Test
@@ -60,7 +60,7 @@ class DateFormatterExtTest {
 
         // then
         val expectedTimeString = "00:00 - 06:00"
-        assertEquals(timeString, expectedTimeString)
+        assertEquals(expectedTimeString, timeString)
     }
 
     @Test
@@ -73,7 +73,7 @@ class DateFormatterExtTest {
 
         // then
         val expectedDateTime = 1623262920000 // 2021 06 10 01:22:00
-        assertEquals(localDateTime, expectedDateTime)
+        assertEquals(expectedDateTime, localDateTime)
     }
 
     @Test
@@ -86,7 +86,7 @@ class DateFormatterExtTest {
 
         // then
         val expectedWeatherTime = 1623258000000 // 2021 06 10 00:00:00
-        assertEquals(weatherTime, expectedWeatherTime)
+        assertEquals(expectedWeatherTime, weatherTime)
     }
 
     @Test
@@ -99,7 +99,7 @@ class DateFormatterExtTest {
 
         // then
         val expectedWeatherTime = 1623279600000 // 2021 06 10 06:00:00
-        assertEquals(weatherTime, expectedWeatherTime)
+        assertEquals(expectedWeatherTime, weatherTime)
     }
 
     @Test
@@ -112,7 +112,7 @@ class DateFormatterExtTest {
 
         // then
         val expectedWeatherTime = 1623301200000 // 2021 06 10 12:00:00
-        assertEquals(weatherTime, expectedWeatherTime)
+        assertEquals(expectedWeatherTime, weatherTime)
     }
 
     @Test
@@ -125,7 +125,7 @@ class DateFormatterExtTest {
 
         // then
         val expectedWeatherTime = 1623322800000 // 2021 06 10 18:00:00
-        assertEquals(weatherTime, expectedWeatherTime)
+        assertEquals(expectedWeatherTime, weatherTime)
     }
 
     @Test
@@ -138,7 +138,7 @@ class DateFormatterExtTest {
 
         // then
         val expectedWeatherTime = 1623258000000 // 2021 06 10 00:00:00
-        assertEquals(currentDate, expectedWeatherTime)
+        assertEquals(expectedWeatherTime, currentDate)
     }
 
     @Test
