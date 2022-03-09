@@ -67,8 +67,8 @@ class WeatherDaoTest {
 
     @Test
     fun `get weathers by date time, return expected values`(): Unit = runBlocking {
-        val startDate = 1623430800000 // 2021 06 12 00:00:00
-        val endDate = 1623517199000 // 2021 06 12 23:59:59
+        val startDate = 1654966800000 // 2022 06 12 00:00:00
+        val endDate = 1655053199000 // 2022 06 12 23:59:59
         // given weathers on database
         weatherDao.insertWeathers(weathers)
         assertThat(weatherDao.getWeathers().first()).isNotEmpty()

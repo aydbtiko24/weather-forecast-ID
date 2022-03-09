@@ -54,7 +54,7 @@ class WeatherLocalDataSourceImplTest {
         // given weathers on db
         dao.insertWeathers(weathers.asEntities())
         // when get current weather
-        val currentDateTime = 1623262965000 // 2021 06 10 01:22:45
+        val currentDateTime = 1654798965000 // 2022 06 10 01:22:45
         val result = dataSource.getCurrentWeather(
             currentDateTime, weathers[0].regionId
         ).first()
@@ -81,9 +81,9 @@ class WeatherLocalDataSourceImplTest {
         val result = dataSource.getWeatherDates().first()
         // then return expected value
         val expected = listOf(
-            "Thu, 10 Jun",
-            "Fri, 11 Jun",
-            "Sat, 12 Jun"
+            "Fri, 10 Jun",
+            "Sat, 11 Jun",
+            "Sun, 12 Jun"
         )
         assertThat(result).containsExactlyElementsIn(expected)
     }
@@ -93,7 +93,7 @@ class WeatherLocalDataSourceImplTest {
         // given weathers on db
         dao.insertWeathers(weathers.asEntities())
         // when get weathers by date
-        val currentDateTime = 1623262965000 // 2021 06 10 01:22:45
+        val currentDateTime = 1654798965000 // 2022 06 10 01:22:45
         val result = dataSource.getWeathersByDate(currentDateTime).first()
         // then return expected value
         val expected = weathers.subList(0, 4)

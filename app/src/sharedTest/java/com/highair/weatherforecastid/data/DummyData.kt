@@ -7,7 +7,7 @@ internal val weatherEntities = listOf(
     WeatherEntity(
         id = 1,
         name = "Cerah Berawan",
-        dateTime = 1623258000000,
+        dateTime = 1654794000000,
         code = 1,
         humidity = 70,
         tempC = 24,
@@ -17,7 +17,7 @@ internal val weatherEntities = listOf(
     WeatherEntity(
         id = 2,
         name = "Cerah Berawan",
-        dateTime = 1623279600000,
+        dateTime = 1654815600000,
         code = 1,
         humidity = 70,
         tempC = 32,
@@ -27,7 +27,7 @@ internal val weatherEntities = listOf(
     WeatherEntity(
         id = 3,
         name = "Berawan",
-        dateTime = 1623301200000,
+        dateTime = 1654837200000,
         code = 3,
         humidity = 95,
         tempC = 24,
@@ -37,7 +37,7 @@ internal val weatherEntities = listOf(
     WeatherEntity(
         id = 4,
         name = "Berawan",
-        dateTime = 1623322800000,
+        dateTime = 1654858800000,
         code = 3,
         humidity = 95,
         tempC = 23,
@@ -48,7 +48,7 @@ internal val weatherEntities = listOf(
     WeatherEntity(
         id = 5,
         name = "Cerah Berawan",
-        dateTime = 1623344400000,
+        dateTime = 1654880400000,
         code = 1,
         humidity = 70,
         tempC = 23,
@@ -58,7 +58,7 @@ internal val weatherEntities = listOf(
     WeatherEntity(
         id = 6,
         name = "Hujan Ringan",
-        dateTime = 1623366000000,
+        dateTime = 1654902000000,
         code = 60,
         humidity = 70,
         tempC = 31,
@@ -68,7 +68,7 @@ internal val weatherEntities = listOf(
     WeatherEntity(
         id = 7,
         name = "Berawan",
-        dateTime = 1623387600000,
+        dateTime = 1654923600000,
         code = 3,
         humidity = 95,
         tempC = 24,
@@ -78,7 +78,7 @@ internal val weatherEntities = listOf(
     WeatherEntity(
         id = 8,
         name = "Cerah",
-        dateTime = 1623409200000,
+        dateTime = 1654945200000,
         code = 0,
         humidity = 85,
         tempC = 23,
@@ -89,7 +89,7 @@ internal val weatherEntities = listOf(
     WeatherEntity(
         id = 9,
         name = "Cerah",
-        dateTime = 1623430800000,
+        dateTime = 1654966800000,
         code = 0,
         humidity = 70,
         tempC = 24,
@@ -99,7 +99,7 @@ internal val weatherEntities = listOf(
     WeatherEntity(
         id = 10,
         name = "Cerah",
-        dateTime = 1623452400000,
+        dateTime = 1654988400000,
         code = 0,
         humidity = 65,
         tempC = 32,
@@ -109,7 +109,7 @@ internal val weatherEntities = listOf(
     WeatherEntity(
         id = 11,
         name = "Cerah Berawan",
-        dateTime = 1623474000000,
+        dateTime = 1655010000000,
         code = 1,
         humidity = 80,
         tempC = 26,
@@ -119,7 +119,7 @@ internal val weatherEntities = listOf(
     WeatherEntity(
         id = 12,
         name = "Cerah Berawan",
-        dateTime = 1623495600000,
+        dateTime = 1655031600000,
         code = 1,
         humidity = 90,
         tempC = 23,

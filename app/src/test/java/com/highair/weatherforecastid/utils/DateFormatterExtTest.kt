@@ -137,7 +137,7 @@ class DateFormatterExtTest {
         val currentDate = labelDate.asSelectedLocalDateTime()
 
         // then
-        val expectedWeatherTime = 1623258000000 // 2021 06 10 00:00:00
+        val expectedWeatherTime = 1654794000000 // 2022 06 10 00:00:00
         assertEquals(expectedWeatherTime, currentDate)
     }
 
